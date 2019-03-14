@@ -1,0 +1,123 @@
+{% extends "topic/base.html" %}
+{% block title %}个人主页{% endblock%}
+{% block main %}
+<div id="main">
+  <div id="sidebar">
+  <div class="panel">
+    <div class="header">
+      <span class="col_fade">个人信息</span>
+    </div>
+    <div class="inner">
+      <div class="user_card">
+        <div>
+          <a class="user_avatar" href="{{ url_for('index.user_detail', username=user.username) }}">
+            <img src="{{ user.image }} ">
+          </a>
+          <span class="user_name"><a class="dark" href="{{ url_for('index.user_detail', username=user.username) }}">{{ user.username }}</a></span>
+            <div class="board clearfix">
+              <div class="floor">
+                <span class="big">积分: 30 </span>
+              </div>
+            </div>
+            <div class="space clearfix"></div>
+            <span class="signature">
+                “
+
+                    {{ user.signature }}
+
+                ”
+            </span>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div id="content">
+  <div class="panel">
+    <div class="header">
+      <ul class="breadcrumb">
+        <li><a href="https://cnodejs.org/">主页</a><span class="divider">/</span></li>
+      </ul>
+    </div>
+    <div class="inner userinfo">
+      <div class="user_big_avatar">
+        <img src="{{ user.image }}" class="user_avatar" title="elvinn">
+      </div>
+      <a class="dark">{{ user.username }}</a>
+      <p class="col_fade">注册时间 3 天前</p>
+      
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="header">
+      <span class="col_fade">最近创建的话题</span>
+    </div>
+    {% for t in ms %}
+    <div class="cell">
+
+  <a class="user_avatar pull-left" href="https://cnodejs.org/user/elvinn">
+    <img src="{{ user.image }}" title="elvinn">
+  </a>
+
+  <span class="reply_count pull-left">
+    <span class="count_of_replies" title="回复数">
+      {{ t.replies() | count }}
+    </span>
+    <span class="count_seperator">/</span>
+    <span class="count_of_visits" title="点击数">
+      {{ t.views }}
+    </span>
+  </span>
+  <a class="last_time pull-right" href="https://cnodejs.org/topic/5b82dd11632c7f422e5b815a#5b840d97fad9359e2e83124e">
+    <img class="user_small_avatar" src="{{ user.image }}">
+    <span class="last_active_time">11 小时前</span>
+  </a>
+  <div class="topic_title_wrapper">
+    <a class="topic_title" href="{{ url_for('my_topic.detail', id=t.id) }}" title="每天阅读一个 npm 模块（2）- mem">
+      {{ t.title }}
+    </a>
+  </div>
+</div>
+    {% endfor %}
+  </div>
+
+  <div class="panel">
+    <div class="header">
+      <span class="col_fade">最近参与的话题</span>
+    </div>
+    {% for r in rt %}
+    <div class="cell">
+
+  <a class="user_avatar pull-left" href="https://cnodejs.org/user/elvinn">
+    <img src="{{ user.image }}" title="elvinn">
+  </a>
+  <span class="reply_count pull-left">
+    <span class="count_of_replies" title="回复数">
+      {{ r.replies() | count }}
+    </span>
+    <span class="count_seperator">/</span>
+    <span class="count_of_visits" title="点击数">
+      {{ r.views }}
+    </span>
+  </span>
+  <a class="last_time pull-right" href="https://cnodejs.org/topic/5b82dd11632c7f422e5b815a#5b840d97fad9359e2e83124e">
+    <img class="user_small_avatar" src="{{ user.image }}">
+    <span class="last_active_time">11 小时前</span>
+  </a>
+  <div class="topic_title_wrapper">
+    <a class="topic_title" href="{{ url_for('my_topic.detail', id=r.id) }}" title="每天阅读一个 npm 模块（2）- mem">
+      {{ r.title }}
+    </a>
+  </div>
+</div>
+    {% endfor %}
+    
+  </div>
+</div>
+
+
+
+</div>
+
+{% endblock %}
