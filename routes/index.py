@@ -12,6 +12,8 @@ from flask import (
     send_from_directory,
 )
 
+from functools import wraps
+
 from models.user import User
 from models.reply import Reply
 
@@ -26,6 +28,7 @@ main = Blueprint('index', __name__)
 @main.route("/")
 def index():
     u = current_user()
+    # token = new_csrf_token()
     return render_template("index.html", user=u)
     # redirect(url_for('my_topic.index'))
 

@@ -10,7 +10,11 @@ from routes import current_user
 
 from models.topic import Topic
 
-from routes import csrf_required
+from routes import (
+    csrf_required,
+    new_csrf_token,
+    topic_required,
+)
 
 main = Blueprint('my_topic', __name__)
 
@@ -19,10 +23,8 @@ main = Blueprint('my_topic', __name__)
 def index():
     ms = Topic.all()
     u = current_user()
-    print(u)
-    # if u == None:
-    #     u = 'guest'
-    return render_template("topic/index.html", ms=ms, user=u)
+    token = new_csrf_token()
+    return render_template("topic/index.html", ms=ms, user=u, token=token)
 
 
 @main.route('/<int:id>')
@@ -60,6 +62,7 @@ def new():
 
 @main.route("/delete")
 @csrf_required
+@topic_required
 # @login_required
 def delete():
     id = int(request.args.get('id'))

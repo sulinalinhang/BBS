@@ -1,9 +1,16 @@
 import uuid
 from functools import wraps
 
-from flask import session, request, abort
+from flask import (
+    session,
+    request,
+    abort,
+    redirect,
+    url_for,
+)
 
 from models.user import User
+from models.topic import Topic
 
 
 def current_user():
@@ -40,3 +47,16 @@ def new_csrf_token():
     # form = dict(token=token)
     User.update(u.id, token=token)
     return token
+
+
+def topic_required(f):
+    @wraps(f)
+    def wrapper():
+        u = current_user()
+        topic_id = request.args['id']
+        t = Topic.one(id=int(topic_id))
+        if t.user_id == u.id:
+            return f()
+        else:
+            return redirect(url_for('.index'))
+    return wrapper
