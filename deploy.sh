@@ -10,7 +10,7 @@ set -ex
 
 # add-apt-repository -y ppa:deadsnakes/ppa
 
-# apt-get update
+apt-get update
 
 # 系统设置
 apt-get -y install  zsh curl ufw
