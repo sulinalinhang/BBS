@@ -10,6 +10,7 @@ set -ex
 
 # add-apt-repository -y ppa:deadsnakes/ppa
 
+# 在服务器要开
 apt-get update
 
 # 系统设置
