@@ -21,7 +21,7 @@ main = Blueprint('my_topic', __name__)
 
 @main.route("/")
 def index():
-    ms = Topic.all()[::-1]
+    ms = Topic.all()
     u = current_user()
     token = new_csrf_token()
     return render_template("topic/index.html", ms=ms, user=u, token=token)
